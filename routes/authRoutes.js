@@ -1,6 +1,10 @@
 const passport = require('passport');
 
 module.exports = app => {
+  // place holder root route
+  app.get('/', (req, res) => {
+    res.send({ hi: 'there' });
+  });
   // route handler for google oauth - taken care of by passport; new GoogleStrategy represented by string 'google'
   // entry point to start google oauth flow
   app.get(
