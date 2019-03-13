@@ -1,45 +1,47 @@
-//root file (startup file for node project)
+//root file (startup file for node project) -- sometimes called startup or server
 
 // must use common js modules bc node only has support for them (i.e. can not use import statements)
 // remember expresss sits on top of node (the actual javascript runtime) -- express just has helper functions for node
+// Node.js is an environment outside of the browser for us to run javascript
 const express = require('express');
-// passport - package to help with authentication that gives us general helper functions to connect auth w express
+// mongoose - package that helps connect to mongoDB
+const mongoose = require('mongoose');
+// cookie-session - enable cookies bc express does not know how to handle cookies outside the box
+const cookieSession = require('cookie-session');
+// passport - authentication - we  are going to tell passport we will use cookie based authentication
 const passport = require('passport');
-// specific strategy for Google authentication -- passport also has other strats (e.g. Facebook, Spotify etc.)
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
+// get keys - will use one for cookie encryption
 const keys = require('./config/keys');
+// execute mongoose model for users to let mongo know to be responsible for a collection of users
+require('./models/User');
+// make sure we run passport config
+require('./services/passport');
+
+// From Mongoose docs: We have a pending connection to the test database running on localhost. We now need to get notified if we connect successfully or if a connection error occurs:
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/gymagenda');
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('MongoDB Connected!');
+});
+
 // app object used to set up configuration/association for/of route handlers
 // app object represents underlying running express server
 const app = express();
 
-// inform passport to use google strategy
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: keys.googleClientID,
-      clientSecret: keys.googleClientSecret,
-      callbackURL: '/auth/google/callback'
-    },
-    accessToken => {
-      console.log(accessToken);
-    }
-  )
-);
-
-// route handler for google oauth - taken care of by passport; new GoogleStrategy represented by string 'google'
-// entry point to start google oauth flow
-app.get(
-  '/auth/google',
-  passport.authenticate('google', {
-    scope: ['profile', 'email']
+// instruct app to enable cookie based authentication
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000, // cookie auto expires after 30 days
+    keys: [keys.cookieKey] // cookie encryption
   })
 );
+// tell passport to make use of cookies for authentication
+app.use(passport.initialize());
+app.use(passport.session());
 
-// route handler for code exchange (code given by google, located in our callback URL delegated in new GoogleStrategy)
-// call back URL and code exchange are extra levels of google oauth flow for security reasons
-// ends with code getting exchanged for access token which is handled in new GoogleStrategy
-// *MUST ADD ROUTE IN AUTHORIZED REDIRECT URIS UNDER CREDENTIALS IN GOOGLE DEVELOPERS CONSOLE*
-app.get('/auth/google/callback', passport.authenticate('google'));
+// import function to handle authentication route execution and immediately invoke it with app argument
+require('./routes/authRoutes')(app);
 
 // dynamic port binding for production (heroku) or development (localhost:5000)
 const PORT = process.env.PORT || 5000;
