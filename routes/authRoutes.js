@@ -15,4 +15,19 @@ module.exports = app => {
   // ends with code getting exchanged for access token which is handled in new GoogleStrategy
   // *MUST ADD ROUTE IN AUTHORIZED REDIRECT URIS UNDER CREDENTIALS IN GOOGLE DEVELOPERS CONSOLE*
   app.get('/auth/google/callback', passport.authenticate('google'));
+
+  // route handler to log out user/unset cookie
+  app.get('/api/logout', (req, res) => {
+    // passport attaches functions to req object - one being req.logout()
+    req.logout();
+    // once looged out we will respond by sending back req.user which should now be empty
+    res.send(req.user);
+  });
+
+  // route handler to get req.user to make sure auth flow works correctly - user persistence achieved
+  // remember w succesful auth flow, every request is prefixed with cookie/token
+  // EXAMPLE OF FLOW: req -> cookie-session (cookie extraction) -> passport (pulls id out of cookie data) -> deserialize user (function to turn user id into a user) -> model inst. added to req object as req.user
+  app.get('/api/current_user', (req, res) => {
+    res.send(req.user);
+  });
 };
