@@ -36,7 +36,7 @@ passport.use(
       proxy: true //our requests are made through a heroku server (proxy) so let google know to trust it (https vs http)
     },
     (accessToken, refreshToken, profile, done) => {
-      console.log(accessToken, refreshToken, profile);
+      // console.log(accessToken, refreshToken, profile);
 
       // do not forget everytime we reach out to a DB it is an async action
       // after receiving info from finished google oauth flow -->
