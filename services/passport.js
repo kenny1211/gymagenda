@@ -35,24 +35,22 @@ passport.use(
       callbackURL: '/auth/google/callback',
       proxy: true //our requests are made through a heroku server (proxy) so let google know to trust it (https vs http)
     },
-    (accessToken, refreshToken, profile, done) => {
+    async (accessToken, refreshToken, profile, done) => {
       // console.log(accessToken, refreshToken, profile);
 
       // do not forget everytime we reach out to a DB it is an async action
       // after receiving info from finished google oauth flow -->
       // first we reach out to the DB to search the user collection to see if the user exists
-      User.findOne({ googleId: profile.id }).then(existingUser => {
-        if (existingUser) {
-          // if we have a record with give profile ID we tell passport we are done
-          // first argument is error object, second argument is user
-          done(null, existingUser);
-        } else {
-          // if the user does not exists we create new model instance, save to MongoDB, then let passport know we are done
-          new User({ googleId: profile.id }).save().then(user => {
-            done(null, user);
-          });
-        }
-      });
+      const existingUser = await User.findOne({ googleId: profile.id });
+      if (existingUser) {
+        // if we have a record with give profile ID we tell passport we are done
+        // first argument is error object, second argument is user
+        done(null, existingUser);
+      } else {
+        // if the user does not exists we create new model instance, save to MongoDB, then let passport know we are done
+        const user = await new User({ googleId: profile.id }).save();
+        done(null, user);
+      }
     }
   )
 );
