@@ -18,14 +18,16 @@ module.exports = app => {
   // call back URL and code exchange are extra levels of google oauth flow for security reasons
   // ends with code getting exchanged for access token which is handled in new GoogleStrategy
   // *MUST ADD ROUTE IN AUTHORIZED REDIRECT URIS UNDER CREDENTIALS IN GOOGLE DEVELOPERS CONSOLE*
-  app.get('/auth/google/callback', passport.authenticate('google'));
+  app.get('/auth/google/callback', passport.authenticate('google'), (req, res) => {
+    res.redirect('/workouts');
+  });
 
   // route handler to log out user/unset cookie
   app.get('/api/logout', (req, res) => {
     // passport attaches functions to req object - one being req.logout()
     req.logout();
-    // once looged out we will respond by sending back req.user which should now be empty
-    res.send(req.user);
+    // once looged out we will respond by redirecting user to root route
+    res.redirect('/');
   });
 
   // route handler to get req.user to make sure auth flow works correctly - user persistence achieved

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, NavbarBrand, Nav, NavItem, Collapse, NavLink, NavbarToggler } from 'reactstrap';
+// connect helper from react redux connects us to redux store which gives us access to pieces of state we need
+import { connect } from 'react-redux';
 
 class Header extends Component {
   constructor(props) {
@@ -10,10 +12,31 @@ class Header extends Component {
       isOpen: false
     };
   }
+
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
     });
+  }
+
+  // based on auth we render login, nothing, or logout
+  renderHeaderContent() {
+    switch (this.props.auth) {
+      case null:
+        return;
+      case false:
+        return (
+          <NavItem>
+            <NavLink href="/auth/google">Login With Google</NavLink>
+          </NavItem>
+        );
+      default:
+        return (
+          <NavItem>
+            <NavLink href="/api/logout">Logout</NavLink>
+          </NavItem>
+        );
+    }
   }
 
   render() {
@@ -23,9 +46,7 @@ class Header extends Component {
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
-            <NavItem>
-              <NavLink href="/components/">Login With Google</NavLink>
-            </NavItem>
+            {this.renderHeaderContent()}
           </Nav>
         </Collapse>
       </Navbar>
@@ -33,4 +54,9 @@ class Header extends Component {
   }
 }
 
-export default Header;
+// what is returned from this function will be props to header
+// we destructure auth from state and return it
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+export default connect(mapStateToProps)(Header);
