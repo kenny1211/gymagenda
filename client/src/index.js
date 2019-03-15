@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers';
+import reduxThunk from 'redux-thunk';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './components/App';
@@ -16,7 +17,7 @@ import App from './components/App';
 // first argument - all the reducers inside of app that help define state
 // second argument - initial state of app
 // third argument - applyMiddleware in place of redux-thunk for now
-const store = createStore(reducers, {}, applyMiddleware());
+const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
 // Provider tag houses redux store and provides state for child component - App
 // ReactDOM.render has two args: first - root component. second - where we will render that component in DOM
