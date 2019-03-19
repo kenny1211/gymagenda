@@ -10,7 +10,7 @@ import * as actions from '../actions';
 // Dummy components for now -- will be replaced w actual components
 import Header from './Header';
 import Landing from './Landing';
-const Dashboard = () => <h2>Dashboard</h2>;
+import Dashboard from './Dashboard';
 const WorkoutsNew = () => <h2>WorkoutsNew</h2>;
 
 class App extends Component {
