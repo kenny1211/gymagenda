@@ -41,8 +41,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// import function to handle authentication route execution and immediately invoke it with app argument
+// import functions to handle execution of routes and immediately invoke them with app argument
 require('./routes/authRoutes')(app);
+require('./routes/workoutsRoutes')(app);
 
 // production configuration so express server knows what to serve up when it comes to certain routes
 if (process.env.NODE_ENV === 'production') {
