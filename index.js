@@ -12,8 +12,9 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 // get keys - will use one for cookie encryption
 const keys = require('./config/keys');
-// execute mongoose model for users to let mongo know to be responsible for a collection of users
+// execute mongoose models to let mongo know to be responsible for the collections we need
 require('./models/User');
+require('./models/Workouts');
 // make sure we run passport config
 require('./services/passport');
 
