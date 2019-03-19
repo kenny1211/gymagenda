@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Navbar, NavbarBrand, Nav, NavItem, Collapse, NavLink, NavbarToggler } from 'reactstrap';
 // connect helper from react redux connects us to redux store which gives us access to pieces of state we need
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class Header extends Component {
   constructor(props) {
@@ -42,7 +43,12 @@ class Header extends Component {
   render() {
     return (
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">Gymagenda</NavbarBrand>
+        <h4>
+          <Link style={{ color: 'black' }} to={this.props.auth ? '/workouts' : '/'}>
+            Gymagenda
+          </Link>
+        </h4>
+
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
