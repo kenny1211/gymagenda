@@ -1,11 +1,18 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const ExcerciseSchema = require('./Excercise');
+
+const excerciseSchema = new Schema({
+  name: String,
+  reps: Number,
+  sets: Number,
+  completed: { type: Boolean, default: false }
+});
 
 const workoutsSchema = new Schema({
   program: String,
-  title: String,
-  excercises: [ExcerciseSchema],
+  group: [String],
+  excercises: [excerciseSchema],
+  completed: { type: Boolean, default: false },
   _user: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 

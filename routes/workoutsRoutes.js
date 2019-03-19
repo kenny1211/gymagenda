@@ -8,11 +8,11 @@ const Workouts = mongoose.model('workouts');
 // an arbitrary number of functions can be passed into a route handler
 module.exports = app => {
   app.post('/api/workouts', requireLogin, async (req, res) => {
-    const { program, title, excercises } = req.body;
+    const { program, group, excercises } = req.body;
 
     const workouts = new Workouts({
       program,
-      title,
+      group,
       excercises,
       _user: req.user.id
     });
