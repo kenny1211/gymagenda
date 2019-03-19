@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand, Nav, NavItem, Collapse, NavLink, NavbarToggler } from 'reactstrap';
+import { Navbar, Nav, NavItem, Collapse, NavLink, NavbarToggler } from 'reactstrap';
 // connect helper from react redux connects us to redux store which gives us access to pieces of state we need
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
