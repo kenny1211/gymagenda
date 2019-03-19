@@ -11,7 +11,7 @@ import * as actions from '../actions';
 import Header from './Header';
 import Landing from './Landing';
 import Dashboard from './Dashboard';
-const WorkoutsNew = () => <h2>WorkoutsNew</h2>;
+import WorkoutsNew from './workouts/WorkoutsNew';
 
 class App extends Component {
   componentDidMount() {
