@@ -16,18 +16,27 @@ import {
 class WorkoutsNew extends Component {
   state = {
     program: '',
-    workouts: [{ group: '', excercises: [] }]
+    workouts: [{ group: '', excercises: [{ excercise: '', reps: '', sets: '' }] }]
   };
 
   addWorkout = event => {
     this.setState(prevState => ({
-      workouts: [...prevState.workouts, { group: '', excercises: [] }]
+      workouts: [
+        ...prevState.workouts,
+        { group: '', excercises: [{ excercise: '', reps: '', sets: '' }] }
+      ]
     }));
   };
 
   handleChange = event => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
+    let { name, value, dataset, className } = event.target;
+    if (name === 'program') {
+      this.setState({ [name]: value });
+    } else {
+      let workouts = [...this.state.workouts];
+      workouts[parseInt(dataset.id)][className] = value;
+      this.setState({ workouts }, () => console.log(this.state));
+    }
   };
 
   handleFormSubmit = event => {
@@ -44,16 +53,10 @@ class WorkoutsNew extends Component {
     return (
       <div style={{ textAlign: 'center' }} className="container col-5">
         <h1>Create Workout Program</h1>
-        <Form onSubmit={this.handleFormSubmit}>
+        <Form onChange={this.handleChange} onSubmit={this.handleFormSubmit}>
           <FormGroup>
             <Label>Program Name</Label>
-            <Input
-              type="text"
-              name="program"
-              id="program"
-              onChange={this.handleChange}
-              value={program}
-            />
+            <Input type="text" name="program" id="program" value={program} />
           </FormGroup>
 
           {/* WORKOUTS FORM BEGIN*/}
@@ -68,14 +71,17 @@ class WorkoutsNew extends Component {
                   <CardBody>
                     <CardTitle>
                       <CustomInput
-                        name={groupId}
+                        type="text"
+                        name="group"
                         className="group"
                         data-id={idx}
+                        id={groupId}
                         placeholder={`Workout #${idx + 1}`}
                       />
                     </CardTitle>
                     <CardSubtitle>
                       <CustomInput
+                        type="text"
                         inline
                         name={exId}
                         className="excercise"
@@ -84,6 +90,7 @@ class WorkoutsNew extends Component {
                         placeholder="excercise"
                       />
                       <CustomInput
+                        type="text"
                         inline
                         name={rId}
                         className="reps"
@@ -92,6 +99,7 @@ class WorkoutsNew extends Component {
                         placeholder="reps"
                       />
                       <CustomInput
+                        type="text"
                         inline
                         name={sId}
                         className="sets"
