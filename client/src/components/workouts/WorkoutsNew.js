@@ -16,7 +16,7 @@ import {
 class WorkoutsNew extends Component {
   state = {
     program: '',
-    workouts: [{ group: '', excercises: [{ excercise: '', reps: '', sets: '' }] }]
+    workouts: [{ group: '', excercises: [{ excercise: 'Get To Me', reps: '', sets: '' }] }]
   };
 
   addWorkout = event => {
@@ -29,12 +29,12 @@ class WorkoutsNew extends Component {
   };
 
   handleChange = event => {
-    let { name, value, dataset, className } = event.target;
+    let { name, value, dataset } = event.target;
     if (name === 'program') {
       this.setState({ [name]: value });
     } else {
       let workouts = [...this.state.workouts];
-      workouts[parseInt(dataset.id)][className] = value;
+      workouts[dataset.id][name] = value;
       this.setState({ workouts }, () => console.log(this.state));
     }
   };
@@ -83,7 +83,7 @@ class WorkoutsNew extends Component {
                       <CustomInput
                         type="text"
                         inline
-                        name={exId}
+                        name={`excercises[${idx}].excercise`}
                         className="excercise"
                         id={exId}
                         data-id={idx}
@@ -92,7 +92,7 @@ class WorkoutsNew extends Component {
                       <CustomInput
                         type="text"
                         inline
-                        name={rId}
+                        name="reps"
                         className="reps"
                         id={rId}
                         data-id={idx}
@@ -101,7 +101,7 @@ class WorkoutsNew extends Component {
                       <CustomInput
                         type="text"
                         inline
-                        name={sId}
+                        name="sets"
                         className="sets"
                         id={sId}
                         data-id={idx}
