@@ -60,7 +60,7 @@ class WorkoutsNew extends Component {
   };
 
   render() {
-    let { program, workouts, excercises } = this.state;
+    let { program, workouts } = this.state;
     return (
       <div style={{ textAlign: 'center' }} className="container col-5">
         <h1>Create Workout Program</h1>
@@ -88,7 +88,7 @@ class WorkoutsNew extends Component {
                       />
                     </CardTitle>
                     <CardSubtitle>
-                      <WorkoutsExcercise excercises={excercises} />
+                      <WorkoutsExcercise workouts={workouts} idx={idx} />
                     </CardSubtitle>
                     <Button onClick={this.addExcercise}>Add Excercise</Button>
                   </CardBody>

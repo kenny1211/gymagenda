@@ -1,8 +1,10 @@
 import React from 'react';
 import { CustomInput } from 'reactstrap';
 
+// field input for excercises for each group (muscle/day/week) for workout/program
+// to get to excercise: workouts[0].exercises[0].excercise
 const WorkoutsExcercise = props => {
-  return props.excercises.map((val, excIdx) => {
+  return props.workouts[props.idx].excercises.map((val, excIdx) => {
     return (
       <div key={excIdx}>
         <CustomInput
@@ -11,7 +13,7 @@ const WorkoutsExcercise = props => {
           name={`excercise`}
           className="excercise"
           // id={exId}
-          // data-id={idx}
+          data-id={excIdx}
           placeholder="excercise"
         />
         <CustomInput
@@ -20,7 +22,7 @@ const WorkoutsExcercise = props => {
           name="reps"
           className="reps"
           // id={rId}
-          // data-id={idx}
+          data-id={excIdx}
           placeholder="reps"
         />
         <CustomInput
@@ -29,7 +31,7 @@ const WorkoutsExcercise = props => {
           name="sets"
           className="sets"
           // id={sId}
-          // data-id={idx}
+          data-id={excIdx}
           placeholder="sets"
         />
         <br />
