@@ -13,27 +13,36 @@ import {
 } from 'reactstrap';
 // import WorkoutsForm from './WorkoutsForm';
 import WorkoutsExcercise from './WorkoutsExcercise';
+import update from 'immutability-helper';
 
 class WorkoutsNew extends Component {
   state = {
     program: '',
-    workouts: [{ group: '', excercises: [{ excercise: 'Get To Me', reps: '', sets: '' }] }],
-    excercises: [{ excercise: '', reps: '', sets: '' }]
+    workouts: [{ group: '', excercises: [{ excercise: 'Get To Me', reps: '', sets: '' }] }]
   };
 
+  // workout fields are printed by a map over state
+  // to add a new workout field:
+  // create copy of previous state
+  // add an empty version afterwards
   addWorkout = event => {
     this.setState(prevState => ({
       workouts: [
         ...prevState.workouts,
-        { group: '', excercises: [{ excercise: '', reps: '', sets: '' }] }
+        { group: '', excercises: [{ excercise: 'one', reps: '', sets: '' }] }
       ]
     }));
   };
 
-  addExcercise = event => {
-    this.setState(prevState => ({
-      excercises: [...prevState.excercises, { excercise: '', reps: '', sets: '' }]
-    }));
+  // to add an excercise:
+  // excercises must be added to the workout they belong to
+  // for example workouts[0] or workouts[1]
+  addExcercise = idx => {
+    const newState = update(this.state, {
+      workouts: { [idx]: { excercises: { $push: [{ excercise: 'one', reps: '', sets: '' }] } } }
+    });
+
+    console.log(newState);
   };
 
   // to get to the dynamic objects in the array we find where they are by their id
@@ -90,7 +99,7 @@ class WorkoutsNew extends Component {
                     <CardSubtitle>
                       <WorkoutsExcercise workouts={workouts} idx={idx} />
                     </CardSubtitle>
-                    <Button onClick={this.addExcercise}>Add Excercise</Button>
+                    <Button onClick={() => this.addExcercise(idx)}>Add Excercise</Button>
                   </CardBody>
                 </Card>
               </FormGroup>
