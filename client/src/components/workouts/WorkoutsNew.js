@@ -43,6 +43,8 @@ class WorkoutsNew extends Component {
     });
 
     console.log(newState);
+
+    this.setState(newState);
   };
 
   // to get to the dynamic objects in the array we find where they are by their id
