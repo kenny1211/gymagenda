@@ -1,3 +1,7 @@
+// component will house forms to create workouts, since workouts have different numbers of excercises, must be dynamic
+// for now, nested state seems to be the most intuitive data model but gets complicated to set state
+// use of immutability-helper to set state in deep nests
+
 import React, { Component } from 'react';
 import {
   Form,
@@ -18,7 +22,12 @@ import update from 'immutability-helper';
 class WorkoutsNew extends Component {
   state = {
     program: '',
-    workouts: [{ group: '', excercises: [{ excercise: 'Get To Me', reps: '', sets: '' }] }]
+    workouts: [
+      {
+        group: '',
+        excercises: [{ excercise: 'This is Excercise', reps: 'This is Reps', sets: 'This is Sets' }]
+      }
+    ]
   };
 
   // workout fields are printed by a map over state
@@ -29,7 +38,7 @@ class WorkoutsNew extends Component {
     this.setState(prevState => ({
       workouts: [
         ...prevState.workouts,
-        { group: '', excercises: [{ excercise: 'one', reps: '', sets: '' }] }
+        { group: '', excercises: [{ excercise: 'new exc', reps: 'new reps', sets: 'new sets' }] }
       ]
     }));
   };
@@ -37,9 +46,14 @@ class WorkoutsNew extends Component {
   // to add an excercise:
   // excercises must be added to the workout they belong to
   // for example workouts[0] or workouts[1]
+  // use of immutability-helper here
   addExcercise = idx => {
     const newState = update(this.state, {
-      workouts: { [idx]: { excercises: { $push: [{ excercise: 'one', reps: '', sets: '' }] } } }
+      workouts: {
+        [idx]: {
+          excercises: { $push: [{ excercise: 'new exc', reps: 'new reps', sets: 'new sets' }] }
+        }
+      }
     });
 
     console.log(newState);
@@ -52,16 +66,29 @@ class WorkoutsNew extends Component {
   // for example: workouts[0][group]
   // to get to excercise: workouts[0].exercises[0].excercise
   handleChange = event => {
+    // desctructure what we need off of the event
     let { name, value, dataset } = event.target;
+
+    // since we are working with a nested state object, each level needs to be set differently
     if (name === 'program') {
+      // program name will only be set once in the beginning
       this.setState({ [name]: value });
-    } else {
+    } else if (name === 'group') {
+      // each group will have a different name depending on it's index in workouts
+      // i.e. workouts[0].group = 'Legs', workouts[1].group = 'Push', workouts[2].group = 'Pull'
       let workouts = [...this.state.workouts];
       workouts[dataset.id][name] = value;
       this.setState({ workouts }, () => console.log(this.state));
+    } else {
+      // the only state left to set will be excercises nested within workouts, with it's own dynamic input field
+      // i.e. workouts[num].excercises[num].excercise = 'Squat'
+
+      let workouts = [...this.state.workouts];
+      console.log(dataset.id);
     }
   };
 
+  // on submit handle API post request
   handleFormSubmit = event => {
     event.preventDefault();
     console.log(this.state);
