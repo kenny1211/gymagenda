@@ -82,11 +82,28 @@ class WorkoutsNew extends Component {
     } else {
       // the only state left to set will be excercises nested within workouts, with it's own dynamic input field
       // i.e. workouts[num].excercises[num].excercise = 'Squat'
-      let workouts = [...this.state.workouts];
 
-      workouts[dataset.id].excercises[dataset.id][name] = value;
+      // POSSIBLE SOLUTION ONE*******************************************************
+      // let workouts = [...this.state.workouts];
 
-      this.setState({ workouts }, () => console.log(this.state));
+      // workouts[dataset.id].excercises[dataset.id][name] = value;
+
+      // this.setState({ workouts }, () => console.log(this.state));
+      // *****************************************************************************
+
+      // POSSIBLE SOLUTION TWO********************************************************
+      //   const newState = update(this.state, {
+      //     workouts: {
+      //       [dataset.id]: {
+      //         excercises: { [dataset.id]: { [name]: { $set: value } } }
+      //       }
+      //     }
+      //   });
+
+      //   console.log(newState);
+      //   this.setState(newState);
+      // **********************************************************************************
+      console.log(dataset.id);
     }
   };
 

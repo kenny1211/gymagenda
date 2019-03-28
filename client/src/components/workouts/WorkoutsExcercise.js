@@ -15,7 +15,9 @@ const WorkoutsExcercise = props => {
           className="excercise"
           // id={exId}
           data-id={excIdx}
+          data-workoutsId={props.idx}
           placeholder="excercise"
+          value={props.workouts[props.idx].excercises[excIdx].name}
         />
         <CustomInput
           type="text"
@@ -24,7 +26,9 @@ const WorkoutsExcercise = props => {
           className="reps"
           // id={rId}
           data-id={excIdx}
+          data-workoutsId={props.idx}
           placeholder="reps"
+          value={props.workouts[props.idx].excercises[excIdx].name}
         />
         <CustomInput
           type="text"
@@ -33,7 +37,9 @@ const WorkoutsExcercise = props => {
           className="sets"
           // id={sId}
           data-id={excIdx}
+          data-workoutsId={props.idx}
           placeholder="sets"
+          value={props.workouts[props.idx].excercises[excIdx].name}
         />
         <br />
       </div>
