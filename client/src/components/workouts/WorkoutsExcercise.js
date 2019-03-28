@@ -11,7 +11,7 @@ const WorkoutsExcercise = props => {
         <CustomInput
           type="text"
           inline
-          name={`excercises[${excIdx}].excercise`}
+          name="excercise"
           className="excercise"
           // id={exId}
           data-id={excIdx}
