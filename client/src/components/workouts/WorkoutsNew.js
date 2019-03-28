@@ -67,7 +67,7 @@ class WorkoutsNew extends Component {
   // to get to excercise: workouts[0].exercises[0].excercise
   handleChange = event => {
     // desctructure what we need off of the event
-    let { name, value, dataset } = event.target;
+    let { name, value, dataset, id } = event.target;
 
     // since we are working with a nested state object, each level needs to be set differently
     if (name === 'program') {
@@ -92,18 +92,17 @@ class WorkoutsNew extends Component {
       // *****************************************************************************
 
       // POSSIBLE SOLUTION TWO********************************************************
-      //   const newState = update(this.state, {
-      //     workouts: {
-      //       [dataset.id]: {
-      //         excercises: { [dataset.id]: { [name]: { $set: value } } }
-      //       }
-      //     }
-      //   });
+      const newState = update(this.state, {
+        workouts: {
+          [id]: {
+            excercises: { [dataset.id]: { [name]: { $set: value } } }
+          }
+        }
+      });
 
-      //   console.log(newState);
-      //   this.setState(newState);
+      console.log(newState);
+      this.setState(newState);
       // **********************************************************************************
-      console.log(dataset.id);
     }
   };
 

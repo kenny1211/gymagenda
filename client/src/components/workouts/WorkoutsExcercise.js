@@ -14,8 +14,8 @@ const WorkoutsExcercise = props => {
           name="excercise"
           className="excercise"
           // id={exId}
+          id={props.idx}
           data-id={excIdx}
-          data-workoutsId={props.idx}
           placeholder="excercise"
           value={props.workouts[props.idx].excercises[excIdx].name}
         />
@@ -25,8 +25,8 @@ const WorkoutsExcercise = props => {
           name="reps"
           className="reps"
           // id={rId}
+          id={props.idx}
           data-id={excIdx}
-          data-workoutsId={props.idx}
           placeholder="reps"
           value={props.workouts[props.idx].excercises[excIdx].name}
         />
@@ -36,8 +36,8 @@ const WorkoutsExcercise = props => {
           name="sets"
           className="sets"
           // id={sId}
+          id={props.idx}
           data-id={excIdx}
-          data-workoutsId={props.idx}
           placeholder="sets"
           value={props.workouts[props.idx].excercises[excIdx].name}
         />
