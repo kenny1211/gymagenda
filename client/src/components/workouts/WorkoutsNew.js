@@ -18,6 +18,7 @@ import {
 // import WorkoutsForm from './WorkoutsForm';
 import WorkoutsExcercise from './WorkoutsExcercise';
 import update from 'immutability-helper';
+import axios from 'axios';
 
 class WorkoutsNew extends Component {
   state = {
@@ -107,12 +108,15 @@ class WorkoutsNew extends Component {
   };
 
   // on submit handle API post request
-  handleFormSubmit = event => {
+  handleFormSubmit = async event => {
     event.preventDefault();
-    console.log(this.state);
-    // prep object to be sent to API
 
-    // make post request
+    try {
+      const res = await axios.post('/api/workouts', this.state);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   render() {

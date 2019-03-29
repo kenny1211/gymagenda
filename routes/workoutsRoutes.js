@@ -7,19 +7,29 @@ const Workouts = mongoose.model('workouts');
 // to use requireLogin - pass middleware function as an argument for express to handle
 // an arbitrary number of functions can be passed into a route handler
 module.exports = app => {
-  app.post('/api/workouts', requireLogin, async (req, res) => {
-    const { program, excercises } = req.body;
+  // public route to view all workouts created in database
+  app.get('/api/workouts', async (req, res) => {
+    const workoutsList = await Workouts.find({});
 
-    const workouts = new Workouts({
+    res.send(workoutsList);
+  });
+
+  // a user must be logged in to create a workout
+  app.post('/api/workouts', requireLogin, async (req, res) => {
+    console.log(req.body);
+
+    const { program, workouts } = req.body;
+
+    const newWorkout = new Workouts({
       program,
-      excercises,
+      workouts,
       _user: req.user.id
     });
 
     try {
-      await workouts.save();
+      await newWorkout.save();
 
-      res.send(workouts);
+      res.send(newWorkout);
     } catch (err) {
       console.log(err);
       res.status(422).send(err); // 422 - unprocessable

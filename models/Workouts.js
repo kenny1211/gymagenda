@@ -9,7 +9,7 @@ const excerciseSchema = new Schema({
 
 const workoutsSchema = new Schema({
   program: String,
-  workouts: [{ group: String, excerises: [excerciseSchema] }],
+  workouts: [{ group: String, excercises: [excerciseSchema] }],
   _user: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 

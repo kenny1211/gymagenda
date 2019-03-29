@@ -12,6 +12,9 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 // get keys - will use one for cookie encryption
 const keys = require('./config/keys');
+// bodyParser - parse incoming request bodies in a middleware before handlers
+const bodyParser = require('body-parser');
+
 // execute mongoose models to let mongo know to be responsible for the collections we need
 require('./models/User');
 require('./models/Workouts');
@@ -29,6 +32,10 @@ db.once('open', function() {
 // app object used to set up configuration/association for/of route handlers
 // app object represents underlying running express server
 const app = express();
+
+// general configuration for http requests so requests body will be allowed to be deeply nested and parsed into json
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // instruct app to enable cookie based authentication
 app.use(
