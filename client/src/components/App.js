@@ -10,7 +10,7 @@ import * as actions from '../actions';
 // Dummy components for now -- will be replaced w actual components
 import Header from './Header';
 import Landing from './Landing';
-import Dashboard from './Dashboard';
+import Dashboard from './dashboard/Dashboard';
 import WorkoutsNew from './workouts/WorkoutsNew';
 
 class App extends Component {
