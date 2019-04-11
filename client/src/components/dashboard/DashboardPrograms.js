@@ -21,6 +21,13 @@ class DashboardPrograms extends Component {
       console.log(err);
     }
   };
+
+  render() {
+    return (
+      //render workouts/programs
+      <h1>Programs List</h1>
+    );
+  }
 }
 
 export default DashboardPrograms;

@@ -12,6 +12,7 @@ class Dashboard extends Component {
     workoutPrograms: [],
     excercises: []
   };
+
   // when component mounts immediately getPrograms()
   componentDidMount() {
     this.getPrograms();
