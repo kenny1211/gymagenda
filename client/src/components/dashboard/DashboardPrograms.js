@@ -24,8 +24,10 @@ class DashboardPrograms extends Component {
 
   render() {
     return (
-      //render workouts/programs
-      <h1>Programs List</h1>
+      <React.Fragment>
+        <h1>Programs List</h1>
+        {/* render all workouts/programs from user submissions */}
+      </React.Fragment>
     );
   }
 }

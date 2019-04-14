@@ -4,7 +4,11 @@ class DashboardExcercises extends Component {
   //map over excercises to display
 
   render() {
-    return <h1>Excercises</h1>;
+    return (
+      <React.Fragment>
+        <h1>Excercises</h1>
+      </React.Fragment>
+    );
   }
 }
 
