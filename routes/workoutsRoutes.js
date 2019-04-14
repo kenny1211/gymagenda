@@ -9,9 +9,25 @@ const Workouts = mongoose.model('workouts');
 module.exports = app => {
   // public route to view all workouts created in database
   app.get('/api/workouts', async (req, res) => {
-    const workoutsList = await Workouts.find({});
+    try {
+      const workoutsList = await Workouts.find({});
 
-    res.send(workoutsList);
+      res.send(workoutsList);
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+  // public route to view given excercies for chosen program
+  // colon: req.params
+  app.get('api/workouts/:program', async (req, res) => {
+    try {
+      const programExcercises = await Workouts.find({ program: req.params.program });
+
+      res.send(programExcercises);
+    } catch (err) {
+      console.log(err);
+    }
   });
 
   // a user must be logged in to create a workout
