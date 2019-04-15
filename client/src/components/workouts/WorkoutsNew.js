@@ -17,8 +17,13 @@ import {
   CardTitle,
   CardSubtitle
 } from 'reactstrap';
+
 // import WorkoutsForm from './WorkoutsForm';
 import WorkoutsExcercise from './WorkoutsExcercise';
+
+//** FOR REFACTOR */
+// import WorkoutsForm from './WorkoutsForm';
+
 import update from 'immutability-helper';
 import axios from 'axios';
 
@@ -136,6 +141,16 @@ class WorkoutsNew extends Component {
           {workouts.map((val, idx) => {
             let groupId = `group-${idx}`;
             return (
+              //** ATTEMPTED REFACTOR */
+              // <WorkoutsForm
+              //   key={idx}
+              //   idx={idx}
+              //   groupId={`group-${idx}`}
+              //   workouts={workouts}
+              //   addExcercise={() => this.addExcercise(idx)}
+              // />
+              //** ATTEMPTED REFACTOR */
+
               <FormGroup key={idx}>
                 <Card>
                   <CardBody>

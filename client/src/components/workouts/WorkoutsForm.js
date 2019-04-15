@@ -34,7 +34,7 @@ const WorkoutsForm = props => {
           <CardSubtitle>
             <WorkoutExcercise workouts={props.workouts} idx={props.idx} />
           </CardSubtitle>
-          <Button onClick={props.onClick}>Add Excercise</Button>
+          <Button onClick={props.addExcercise}>Add Excercise</Button>
         </CardBody>
       </Card>
     </FormGroup>

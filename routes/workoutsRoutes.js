@@ -19,9 +19,9 @@ module.exports = app => {
     }
   });
 
-  // public route to view given excercies for chosen program
+  // public route to view given excercies for chosen program by captured value in route parameter
   // colon: req.params
-  app.get('api/workouts/program/:program', async (req, res) => {
+  app.get('/api/workouts/program/:program', async (req, res) => {
     try {
       const programExcercises = await Workouts.find({ program: req.params.program });
 
