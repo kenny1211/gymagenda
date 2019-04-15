@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const excerciseSchema = new Schema({
-  name: String,
-  reps: Number,
-  sets: Number
+  excercise: String,
+  sets: Number,
+  reps: Number
 });
 
 const workoutsSchema = new Schema({

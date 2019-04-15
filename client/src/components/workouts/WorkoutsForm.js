@@ -14,21 +14,27 @@ import {
   CardSubtitle,
   Button
 } from 'reactstrap';
+import WorkoutExcercise from './WorkoutsExcercise';
 
 const WorkoutsForm = props => {
   return (
-    <FormGroup>
+    <FormGroup key={props.key}>
       <Card>
         <CardBody>
           <CardTitle>
-            <CustomInput placeholder="group" />
+            <CustomInput
+              type="text"
+              name="group"
+              className="group"
+              data-id={props.idx}
+              id={props.groupId}
+              placeholder={`Workout #${props.idx + 1}`}
+            />
           </CardTitle>
           <CardSubtitle>
-            <CustomInput inline name="excercise" placeholder="excercise" />
-            <CustomInput inline name="reps" placeholder="reps" />
-            <CustomInput inline name="sets" placeholder="sets" />
+            <WorkoutExcercise workouts={props.workouts} idx={props.idx} />
           </CardSubtitle>
-          <Button>Add Excercise</Button>
+          <Button onClick={props.onClick}>Add Excercise</Button>
         </CardBody>
       </Card>
     </FormGroup>

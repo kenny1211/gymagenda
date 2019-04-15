@@ -15,18 +15,20 @@ module.exports = app => {
       res.send(workoutsList);
     } catch (err) {
       console.log(err);
+      res.status(422).send(err);
     }
   });
 
   // public route to view given excercies for chosen program
   // colon: req.params
-  app.get('api/workouts/:program', async (req, res) => {
+  app.get('api/workouts/program/:program', async (req, res) => {
     try {
       const programExcercises = await Workouts.find({ program: req.params.program });
 
       res.send(programExcercises);
     } catch (err) {
       console.log(err);
+      res.status(422).send(err);
     }
   });
 

@@ -22,17 +22,6 @@ const WorkoutsExcercise = props => {
         <CustomInput
           type="text"
           inline
-          name="reps"
-          className="reps"
-          // id={rId}
-          id={props.idx}
-          data-id={excIdx}
-          placeholder="reps"
-          value={props.workouts[props.idx].excercises[excIdx].name}
-        />
-        <CustomInput
-          type="text"
-          inline
           name="sets"
           className="sets"
           // id={sId}
@@ -41,6 +30,18 @@ const WorkoutsExcercise = props => {
           placeholder="sets"
           value={props.workouts[props.idx].excercises[excIdx].name}
         />
+        <CustomInput
+          type="text"
+          inline
+          name="reps"
+          className="reps"
+          // id={rId}
+          id={props.idx}
+          data-id={excIdx}
+          placeholder="reps"
+          value={props.workouts[props.idx].excercises[excIdx].name}
+        />
+
         <br />
       </div>
     );

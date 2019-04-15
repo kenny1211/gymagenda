@@ -2,6 +2,8 @@
 // for now, nested state seems to be the most intuitive data model but gets complicated to set state
 // use of immutability-helper to set state in deep nests
 
+// **Currently all Components shown but in refactor they will be separated into WorkoutsExcercise and WorkoutsForm
+
 import React, { Component } from 'react';
 import {
   Form,
