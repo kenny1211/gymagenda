@@ -12,7 +12,7 @@ module.exports = app => {
     try {
       const workoutsList = await Workouts.find({});
 
-      res.send(workoutsList);
+      res.json(workoutsList);
     } catch (err) {
       console.log(err);
       res.status(422).send(err);
@@ -21,11 +21,13 @@ module.exports = app => {
 
   // public route to view given excercies for chosen program by captured value in route parameter
   // colon: req.params
-  app.get('/api/workouts/program/:program', async (req, res) => {
-    try {
-      const programExcercises = await Workouts.find({ program: req.params.program });
+  app.get('/api/program/:program', async (req, res) => {
+    let id = req.params.program;
 
-      res.send(programExcercises);
+    try {
+      const programExcercises = await Workouts.findById(id);
+
+      res.json(programExcercises);
     } catch (err) {
       console.log(err);
       res.status(422).send(err);

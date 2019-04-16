@@ -10,7 +10,8 @@ class Dashboard extends Component {
   state = {
     workoutChosen: false,
     workoutPrograms: [],
-    excercises: []
+    excercises: [],
+    programChosen: ''
   };
 
   // when component mounts immediately getPrograms()
@@ -30,11 +31,43 @@ class Dashboard extends Component {
     }
   };
 
-  //function to get excercises for chosen program
-  getExcercises = async () => {};
+  // function to get excercises for chosen program
+  // in state under programChosen, use value to get relevant excercises
+  getExcercises = async programChosen => {
+    try {
+      console.log(programChosen);
 
-  //function to render excercises for chosen program (after program chosen workoutChosen: true)
+      const res = await axios.get(`/api/program/${programChosen}`);
+
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // function to handle chosen workout program
+  // in the target button, data-program is the program name
+  // grab the program name and set it to state
+  // change workoutChosen to true to render DashboardExcercises program in place of DashboardPrograms
+  handleChosen = event => {
+    let { dataset } = event.target;
+
+    this.setState({ programChosen: dataset.program, workoutChosen: true });
+
+    console.log(this.state.programChosen);
+
+    if (this.state.programChosen) {
+      let programChosen = this.state.programChosen;
+      this.getExcercises(programChosen);
+    }
+  };
+
+  // function to render excercises for chosen program (after program chosen workoutChosen: true)
   renderExcercises = () => {};
+
+  // function to set workoutsChosen to false
+  // then DashboardPrograms will be shown component
+  handleViewPrograms = () => {};
 
   render() {
     return (
@@ -54,12 +87,14 @@ class Dashboard extends Component {
           <div className="col" style={{ textAlign: 'center' }}>
             {/* when workoutChosen false display workouts/programs, else display excercises */}
             <h4>Programs List</h4>
-            {this.state.workoutPrograms.map(program => {
+            {this.state.workoutPrograms.map((program, idx) => {
               return (
-                <Card>
+                <Card key={idx}>
                   <CardBody>
-                    <CardTitle>{program.program}</CardTitle>
-                    <Button>View Excercises</Button>
+                    <CardTitle data-program={program.program}>{program.program}</CardTitle>
+                    <Button onClick={this.handleChosen} data-program={program._id}>
+                      View Excercises
+                    </Button>
                   </CardBody>
                 </Card>
               );
