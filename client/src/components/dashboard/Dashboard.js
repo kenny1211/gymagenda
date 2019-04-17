@@ -40,6 +40,9 @@ class Dashboard extends Component {
       const res = await axios.get(`/api/program/${programChosen}`);
 
       console.log(res.data);
+
+      this.setState({ programChosen: res.data });
+      console.log(this.state.programChosen);
     } catch (err) {
       console.log(err);
     }
@@ -63,11 +66,27 @@ class Dashboard extends Component {
   };
 
   // function to render excercises for chosen program (after program chosen workoutChosen: true)
-  renderExcercises = () => {};
+  renderExcercises = () => {
+    if (this.state.workoutChosen) {
+      // return this.state.programChosen.workouts.map((program, idx) => {
+      //   return (
+      //     <Card key={idx}>
+      //       <CardBody>
+      //         <CardTitle>{program.workouts[idx].group}</CardTitle>
+      //       </CardBody>
+      //     </Card>
+      //   );
+      // });
+      let { programChosen } = this.state;
+      console.log(programChosen.workouts);
+    }
+  };
 
   // function to set workoutsChosen to false
   // then DashboardPrograms will be shown component
-  handleViewPrograms = () => {};
+  handleViewPrograms = () => {
+    this.setState({ workoutChosen: false });
+  };
 
   render() {
     return (
@@ -102,7 +121,9 @@ class Dashboard extends Component {
           </div>
           <div className="col">
             {/* Excercises to display from chosen workout/program */}
-            <h4>Excercises</h4>
+
+            <h4>{this.state.programChosen.program} Excercises</h4>
+            {this.renderExcercises()}
           </div>
         </div>
       </div>
