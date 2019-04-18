@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Card, CardBody, CardTitle, Button } from 'reactstrap';
+import { Card, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
 
 class Dashboard extends Component {
   state = {
@@ -33,6 +33,7 @@ class Dashboard extends Component {
 
   // function to get excercises for chosen program
   // in state under programChosen, use value to get relevant excercises
+  // change workoutChosen to true to prepare to render DashboardExcercises program in place of DashboardPrograms
   getExcercises = async programChosen => {
     try {
       console.log(programChosen);
@@ -41,7 +42,9 @@ class Dashboard extends Component {
 
       console.log(res.data);
 
-      this.setState({ programChosen: res.data });
+      if (res.data) {
+        this.setState({ programChosen: res.data, workoutChosen: true });
+      }
       console.log(this.state.programChosen);
     } catch (err) {
       console.log(err);
@@ -51,11 +54,10 @@ class Dashboard extends Component {
   // function to handle chosen workout program
   // in the target button, data-program is the program name
   // grab the program name and set it to state
-  // change workoutChosen to true to render DashboardExcercises program in place of DashboardPrograms
   handleChosen = event => {
     let { dataset } = event.target;
 
-    this.setState({ programChosen: dataset.program, workoutChosen: true });
+    this.setState({ programChosen: dataset.program });
 
     console.log(this.state.programChosen);
 
@@ -68,17 +70,27 @@ class Dashboard extends Component {
   // function to render excercises for chosen program (after program chosen workoutChosen: true)
   renderExcercises = () => {
     if (this.state.workoutChosen) {
-      // return this.state.programChosen.workouts.map((program, idx) => {
-      //   return (
-      //     <Card key={idx}>
-      //       <CardBody>
-      //         <CardTitle>{program.workouts[idx].group}</CardTitle>
-      //       </CardBody>
-      //     </Card>
-      //   );
-      // });
-      let { programChosen } = this.state;
-      console.log(programChosen.workouts);
+      let workoutsArray = this.state.programChosen.workouts;
+      console.log(workoutsArray);
+
+      let excercisesArray = workoutsArray.map(workout => workout.excercises);
+
+      console.log(excercisesArray);
+
+      return workoutsArray.map((workout, idx) => {
+        return (
+          <Card key={idx}>
+            <CardBody>
+              <CardTitle>{workout.group}</CardTitle>
+              <CardSubtitle> SOMETHING SOMETHING </CardSubtitle>
+            </CardBody>
+          </Card>
+        );
+      });
+
+      // how to get to workout group name:
+      // let workoutsArray = this.state.programChosen.workouts;
+      // console.log('workoutsArray:' + JSON.stringify(workoutsArray[0].group));
     }
   };
 
