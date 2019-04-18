@@ -73,16 +73,18 @@ class Dashboard extends Component {
       let workoutsArray = this.state.programChosen.workouts;
       console.log(workoutsArray);
 
-      let excercisesArray = workoutsArray.map(workout => workout.excercises);
-
-      console.log(excercisesArray);
+      let excercisesArray = workoutsArray.map((workout, index) => {
+        workout.excercises.map((excercise, jindex) => {
+          return console.log(excercise.excercise, excercise.sets, excercise.reps);
+        });
+      });
 
       return workoutsArray.map((workout, idx) => {
         return (
           <Card key={idx}>
             <CardBody>
               <CardTitle>{workout.group}</CardTitle>
-              <CardSubtitle> SOMETHING SOMETHING </CardSubtitle>
+              <CardSubtitle> </CardSubtitle>
             </CardBody>
           </Card>
         );
@@ -135,6 +137,7 @@ class Dashboard extends Component {
             {/* Excercises to display from chosen workout/program */}
 
             <h4>{this.state.programChosen.program} Excercises</h4>
+            <Button onClick={this.handleViewPrograms}>View Programs</Button>
             {this.renderExcercises()}
           </div>
         </div>
