@@ -74,9 +74,15 @@ class Dashboard extends Component {
       console.log(workoutsArray);
 
       let excercisesArray = workoutsArray.map((workout, index) => {
+        let toRender;
         workout.excercises.map((excercise, jindex) => {
-          return console.log(excercise.excercise, excercise.sets, excercise.reps);
+          console.log(excercise.excercise, excercise.sets, excercise.reps);
+          toRender = (
+            <CardSubtitle>{excercise.excercise + excercise.sets + excercise.reps}</CardSubtitle>
+          );
+          return toRender;
         });
+        return toRender;
       });
 
       return workoutsArray.map((workout, idx) => {
@@ -84,7 +90,7 @@ class Dashboard extends Component {
           <Card key={idx}>
             <CardBody>
               <CardTitle>{workout.group}</CardTitle>
-              <CardSubtitle> </CardSubtitle>
+              <CardSubtitle>{excercisesArray}</CardSubtitle>
             </CardBody>
           </Card>
         );
