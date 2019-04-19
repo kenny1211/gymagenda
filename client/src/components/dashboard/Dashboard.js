@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Card, CardBody, CardTitle, CardSubtitle, Button, Table } from 'reactstrap';
+import DashboardPrograms from './DashboardPrograms';
 
 class Dashboard extends Component {
   state = {
@@ -139,8 +140,7 @@ class Dashboard extends Component {
         <div className="row">
           <div className="col" style={{ textAlign: 'center' }}>
             {/* when workoutChosen false display workouts/programs, else display excercises */}
-            <h4>Programs List</h4>
-            {this.state.workoutPrograms.map((program, idx) => {
+            {/* {this.state.workoutPrograms.map((program, idx) => {
               return (
                 <Card key={idx}>
                   <CardBody>
@@ -151,7 +151,11 @@ class Dashboard extends Component {
                   </CardBody>
                 </Card>
               );
-            })}
+            })} */}
+            <DashboardPrograms
+              workoutPrograms={this.state.workoutPrograms}
+              handleChosen={this.handleChosen}
+            />
           </div>
           <div className="col">
             {/* Excercises to display from chosen workout/program */}

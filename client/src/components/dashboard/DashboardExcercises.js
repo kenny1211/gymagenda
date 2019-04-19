@@ -1,15 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class DashboardExcercises extends Component {
+const DashboardExcercises = props => {
   //map over excercises to display
 
-  render() {
-    return (
-      <React.Fragment>
-        <h1>Excercises</h1>
-      </React.Fragment>
-    );
-  }
-}
+  return (
+    <React.Fragment>
+      <h1>Excercises</h1>
+    </React.Fragment>
+  );
+};
 
 export default DashboardExcercises;
