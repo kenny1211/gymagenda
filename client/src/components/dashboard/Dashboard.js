@@ -4,8 +4,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Card, CardBody, CardTitle, CardSubtitle, Button, Table } from 'reactstrap';
 import DashboardPrograms from './DashboardPrograms';
+import DashboardExcercises from './DashboardExcercises';
 
 class Dashboard extends Component {
   state = {
@@ -68,57 +68,6 @@ class Dashboard extends Component {
     }
   };
 
-  // function to render excercises for chosen program (after program chosen workoutChosen: true)
-  renderExcercises = () => {
-    if (this.state.workoutChosen) {
-      let workoutsArray = this.state.programChosen.workouts;
-      console.log(workoutsArray);
-
-      let excercisesArray = workout => {
-        return workout.excercises.map((excercise, jindex) => {
-          console.log(excercise.excercise, excercise.sets, excercise.reps);
-          return (
-            <tr key={excercise.excercise}>
-              <th>{excercise.excercise}</th>
-              <th>{excercise.sets}</th>
-              <th>{excercise.reps}</th>
-            </tr>
-          );
-        });
-      };
-
-      return workoutsArray.map((workout, idx) => {
-        return (
-          <Card key={idx}>
-            <CardBody>
-              <CardTitle style={{ textAlign: 'center' }}>
-                <h4>{workout.group}</h4>
-              </CardTitle>
-              <CardSubtitle>
-                <Table>
-                  <thead>
-                    <tr>
-                      <th>Excercise</th>
-                      <th>Sets</th>
-                      <th>Reps</th>
-                    </tr>
-                  </thead>
-                  <tbody>{excercisesArray(workout)}</tbody>
-                </Table>
-              </CardSubtitle>
-            </CardBody>
-          </Card>
-        );
-      });
-
-      // how to get to workout group name:
-      // let workoutsArray = this.state.programChosen.workouts;
-      // console.log('workoutsArray:' + JSON.stringify(workoutsArray[0].group));
-    }
-  };
-
-  // function to set workoutsChosen to false
-  // then DashboardPrograms will be shown component
   handleViewPrograms = () => {
     this.setState({ workoutChosen: false });
   };
@@ -140,29 +89,17 @@ class Dashboard extends Component {
         <div className="row">
           <div className="col" style={{ textAlign: 'center' }}>
             {/* when workoutChosen false display workouts/programs, else display excercises */}
-            {/* {this.state.workoutPrograms.map((program, idx) => {
-              return (
-                <Card key={idx}>
-                  <CardBody>
-                    <CardTitle data-program={program.program}>{program.program}</CardTitle>
-                    <Button onClick={this.handleChosen} data-program={program._id}>
-                      View Excercises
-                    </Button>
-                  </CardBody>
-                </Card>
-              );
-            })} */}
             <DashboardPrograms
               workoutPrograms={this.state.workoutPrograms}
               handleChosen={this.handleChosen}
             />
           </div>
           <div className="col">
-            {/* Excercises to display from chosen workout/program */}
-
-            <h4>{this.state.programChosen.program} Excercises</h4>
-            <Button onClick={this.handleViewPrograms}>View Programs</Button>
-            {this.renderExcercises()}
+            <DashboardExcercises
+              programChosen={this.state.programChosen}
+              handleViewPrograms={this.handleViewPrograms}
+              workoutChosen={this.state.workoutChosen}
+            />
           </div>
         </div>
       </div>
