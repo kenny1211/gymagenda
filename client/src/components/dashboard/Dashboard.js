@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Card, CardBody, CardTitle, CardSubtitle, Button } from 'reactstrap';
+import { Card, CardBody, CardTitle, CardSubtitle, Button, Table } from 'reactstrap';
 
 class Dashboard extends Component {
   state = {
@@ -73,24 +73,38 @@ class Dashboard extends Component {
       let workoutsArray = this.state.programChosen.workouts;
       console.log(workoutsArray);
 
-      let excercisesArray = workoutsArray.map((workout, index) => {
-        let toRender;
-        workout.excercises.map((excercise, jindex) => {
+      let excercisesArray = workout => {
+        return workout.excercises.map((excercise, jindex) => {
           console.log(excercise.excercise, excercise.sets, excercise.reps);
-          toRender = (
-            <CardSubtitle>{excercise.excercise + excercise.sets + excercise.reps}</CardSubtitle>
+          return (
+            <tr key={excercise.excercise}>
+              <th>{excercise.excercise}</th>
+              <th>{excercise.sets}</th>
+              <th>{excercise.reps}</th>
+            </tr>
           );
-          return toRender;
         });
-        return toRender;
-      });
+      };
 
       return workoutsArray.map((workout, idx) => {
         return (
           <Card key={idx}>
             <CardBody>
-              <CardTitle>{workout.group}</CardTitle>
-              <CardSubtitle>{excercisesArray}</CardSubtitle>
+              <CardTitle style={{ textAlign: 'center' }}>
+                <h4>{workout.group}</h4>
+              </CardTitle>
+              <CardSubtitle>
+                <Table>
+                  <thead>
+                    <tr>
+                      <th>Excercise</th>
+                      <th>Sets</th>
+                      <th>Reps</th>
+                    </tr>
+                  </thead>
+                  <tbody>{excercisesArray(workout)}</tbody>
+                </Table>
+              </CardSubtitle>
             </CardBody>
           </Card>
         );
