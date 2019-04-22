@@ -74,6 +74,20 @@ class Dashboard extends Component {
     console.log(this.state);
   };
 
+  handleDelete = async event => {
+    let { dataset } = event.target;
+    let deleteThis = dataset.program;
+
+    if (deleteThis) {
+      try {
+        const res = await axios.delete(`/api/program/${deleteThis}`);
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
   renderUserView = () => {
     if (!this.state.workoutChosen) {
       return (
@@ -81,6 +95,7 @@ class Dashboard extends Component {
           <DashboardPrograms
             workoutPrograms={this.state.workoutPrograms}
             handleChosen={this.handleChosen}
+            handleDelete={this.handleDelete}
           />
         </div>
       );

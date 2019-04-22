@@ -33,7 +33,7 @@ class WorkoutsNew extends Component {
     workouts: [
       {
         group: '',
-        excercises: [{ excercise: 'This is Excercise', reps: 'This is Reps', sets: 'This is Sets' }]
+        excercises: [{ excercise: '', reps: '', sets: '' }]
       }
     ]
   };
@@ -46,7 +46,7 @@ class WorkoutsNew extends Component {
     this.setState(prevState => ({
       workouts: [
         ...prevState.workouts,
-        { group: '', excercises: [{ excercise: 'new exc', reps: 'new reps', sets: 'new sets' }] }
+        { group: '', excercises: [{ excercise: '', reps: '', sets: '' }] }
       ]
     }));
   };
@@ -59,7 +59,7 @@ class WorkoutsNew extends Component {
     const newState = update(this.state, {
       workouts: {
         [idx]: {
-          excercises: { $push: [{ excercise: 'new exc', reps: 'new reps', sets: 'new sets' }] }
+          excercises: { $push: [{ excercise: '', reps: '', sets: '' }] }
         }
       }
     });

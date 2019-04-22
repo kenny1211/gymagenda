@@ -11,8 +11,17 @@ const DashboardPrograms = props => {
           <Card key={idx}>
             <CardBody>
               <CardTitle data-program={program.program}>{program.program}</CardTitle>
-              <Button onClick={props.handleChosen} data-program={program._id}>
+              <Button size="sm" onClick={props.handleChosen} data-program={program._id}>
                 View Excercises
+              </Button>
+              <Button
+                size="sm"
+                color="danger"
+                className="mx-1"
+                onClick={props.handleDelete}
+                data-program={program._id}
+              >
+                Remove
               </Button>
             </CardBody>
           </Card>

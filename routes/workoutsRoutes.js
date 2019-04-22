@@ -34,6 +34,20 @@ module.exports = app => {
     }
   });
 
+  // route to delete program
+  app.delete('/api/program/:program', requireLogin, async (req, res) => {
+    let id = req.params.program;
+
+    try {
+      const programDelete = await Workouts.deleteOne({ _id: id });
+
+      res.json(programDelete);
+    } catch (err) {
+      console.log(err);
+      res.status(422).send(err);
+    }
+  });
+
   // a user must be logged in to create a workout
   app.post('/api/workouts', requireLogin, async (req, res) => {
     console.log(req.body);

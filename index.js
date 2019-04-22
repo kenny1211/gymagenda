@@ -33,6 +33,10 @@ db.once('open', function() {
 // app object represents underlying running express server
 const app = express();
 
+// general configuration for http requests so requests body will be allowed to be deeply nested and parsed into json
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 // instruct app to enable cookie based authentication
 app.use(
   cookieSession({
@@ -60,10 +64,6 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
-
-// general configuration for http requests so requests body will be allowed to be deeply nested and parsed into json
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
 // dynamic port binding for production (heroku) or development (localhost:5000)
 const PORT = process.env.PORT || 5000;
