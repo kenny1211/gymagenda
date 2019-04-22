@@ -7,7 +7,7 @@ const DashboardExcercises = props => {
   // function to render excercises for chosen program (after program chosen workoutChosen: true)
   let renderExcercises = () => {
     if (props.workoutChosen) {
-      let workoutsArray = props.programChosen.workouts;
+      let workoutsArray = props.programExcercises.workouts;
       console.log(workoutsArray);
 
       let excercisesArray = workout => {
@@ -55,7 +55,7 @@ const DashboardExcercises = props => {
 
   return (
     <React.Fragment>
-      <h4>{props.programChosen.program}Excercises</h4>
+      <h4>{props.programExcercises.program} Excercises</h4>
       <Button onClick={props.handleViewPrograms}> View Programs </Button>
       {renderExcercises()}
     </React.Fragment>

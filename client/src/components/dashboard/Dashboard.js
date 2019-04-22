@@ -6,13 +6,14 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import DashboardPrograms from './DashboardPrograms';
 import DashboardExcercises from './DashboardExcercises';
+import { Button } from 'reactstrap';
 
 class Dashboard extends Component {
   state = {
     workoutChosen: false,
     workoutPrograms: [],
-    excercises: [],
-    programChosen: ''
+    programChosen: '',
+    programExcercises: []
   };
 
   // when component mounts immediately getPrograms()
@@ -44,9 +45,9 @@ class Dashboard extends Component {
       console.log(res.data);
 
       if (res.data) {
-        this.setState({ programChosen: res.data, workoutChosen: true });
+        this.setState({ programExcercises: res.data, workoutChosen: true });
       }
-      console.log(this.state.programChosen);
+      console.log(this.state.programExcercises);
     } catch (err) {
       console.log(err);
     }
@@ -69,7 +70,31 @@ class Dashboard extends Component {
   };
 
   handleViewPrograms = () => {
-    this.setState({ workoutChosen: false });
+    this.setState({ workoutChosen: false, programChosen: '', programExcercises: '' });
+    console.log(this.state);
+  };
+
+  renderUserView = () => {
+    if (!this.state.workoutChosen) {
+      return (
+        <div className="col" style={{ textAlign: 'center' }}>
+          <DashboardPrograms
+            workoutPrograms={this.state.workoutPrograms}
+            handleChosen={this.handleChosen}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div className="col" style={{ textAlign: 'center' }}>
+          <DashboardExcercises
+            programExcercises={this.state.programExcercises}
+            handleViewPrograms={this.handleViewPrograms}
+            workoutChosen={this.state.workoutChosen}
+          />
+        </div>
+      );
+    }
   };
 
   render() {
@@ -87,8 +112,9 @@ class Dashboard extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="col" style={{ textAlign: 'center' }}>
-            {/* when workoutChosen false display workouts/programs, else display excercises */}
+          {/* <div className="col" style={{ textAlign: 'center' }}> */}
+          {this.renderUserView()}
+          {/* when workoutChosen false display workouts/programs, else display excercises
             <DashboardPrograms
               workoutPrograms={this.state.workoutPrograms}
               handleChosen={this.handleChosen}
@@ -96,11 +122,11 @@ class Dashboard extends Component {
           </div>
           <div className="col">
             <DashboardExcercises
-              programChosen={this.state.programChosen}
+              programExcercises={this.state.programExcercises}
               handleViewPrograms={this.handleViewPrograms}
               workoutChosen={this.state.workoutChosen}
-            />
-          </div>
+            /> */}
+          {/* </div> */}
         </div>
       </div>
     );
