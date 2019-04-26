@@ -48,6 +48,19 @@ module.exports = app => {
     }
   });
 
+  // route to access a single excercise
+  app.get('/api/excercise/:id', requireLogin, async (req, res) => {
+    let id = req.params.id;
+
+    try {
+      const excercise = await Workouts.findById(id);
+      res.json(excercise);
+    } catch (err) {
+      console.log(err);
+      res.status(422).send(err);
+    }
+  });
+
   // a user must be logged in to create a workout
   app.post('/api/workouts', requireLogin, async (req, res) => {
     console.log(req.body);
