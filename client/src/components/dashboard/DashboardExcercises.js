@@ -1,5 +1,12 @@
-import React from 'react';
-import { Card, CardBody, CardTitle, CardSubtitle, Table, Button } from 'reactstrap';
+import React from "react";
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  Table,
+  Button
+} from "reactstrap";
 
 const DashboardExcercises = props => {
   //once user has chosen a program display respective excercises
@@ -11,7 +18,7 @@ const DashboardExcercises = props => {
       console.log(workoutsArray);
 
       let excercisesArray = workout => {
-        return workout.excercises.map((excercise, jindex) => {
+        return workout.excercises.map((excercise, index) => {
           console.log(excercise.excercise, excercise.sets, excercise.reps);
           return (
             <tr key={excercise.excercise}>
@@ -27,7 +34,7 @@ const DashboardExcercises = props => {
         return (
           <Card key={idx}>
             <CardBody>
-              <CardTitle style={{ textAlign: 'center' }}>
+              <CardTitle style={{ textAlign: "center" }}>
                 <h4>{workout.group}</h4>
               </CardTitle>
               <CardSubtitle>
