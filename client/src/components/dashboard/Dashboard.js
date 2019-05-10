@@ -81,6 +81,9 @@ class Dashboard extends Component {
     if (deleteThis) {
       try {
         const res = await axios.delete(`/api/program/${deleteThis}`);
+        if (res) {
+          this.getPrograms();
+        }
         console.log(res.data);
       } catch (err) {
         console.log(err);
