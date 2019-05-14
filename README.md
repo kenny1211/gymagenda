@@ -8,6 +8,7 @@ To Do:
 - [ ] Put route to allow excercise edits
 - [ ] Calendar page that correlates with chosen workouts
 - [ ] Record progress for specific excercises with visual representation
+- [ ] General styling / mobile responsiveness
 
 [Depolyed App](https://shielded-basin-34273.herokuapp.com/)
 
