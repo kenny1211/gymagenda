@@ -13,7 +13,8 @@ class Dashboard extends Component {
     workoutChosen: false,
     workoutPrograms: [],
     programChosen: '',
-    programExcercises: []
+    programExcercises: [],
+    todaysExcercise: []
   };
 
   // when component mounts immediately getPrograms()
@@ -91,6 +92,11 @@ class Dashboard extends Component {
     }
   };
 
+  handleToday = event => {
+    let { dataset } = event.target;
+    console.log(this.state.programExcercises.workouts[dataset.workoutid]);
+  };
+
   renderUserView = () => {
     if (!this.state.workoutChosen) {
       return (
@@ -109,6 +115,7 @@ class Dashboard extends Component {
             programExcercises={this.state.programExcercises}
             handleViewPrograms={this.handleViewPrograms}
             workoutChosen={this.state.workoutChosen}
+            handleToday={this.handleToday}
           />
         </div>
       );

@@ -8,13 +8,13 @@ const DashboardExcercises = props => {
   let renderExcercises = () => {
     if (props.workoutChosen) {
       let workoutsArray = props.programExcercises.workouts;
-      console.log(workoutsArray);
+      // console.log(workoutsArray);
 
       let excercisesArray = workout => {
         return workout.excercises.map((excercise, jindex) => {
-          console.log(excercise.excercise, excercise.sets, excercise.reps);
+          // console.log(excercise.excercise, excercise.sets, excercise.reps);
           return (
-            <tr key={excercise.excercise}>
+            <tr key={jindex}>
               <th>{excercise.excercise}</th>
               <th>{excercise.sets}</th>
               <th>{excercise.reps}</th>
@@ -29,6 +29,9 @@ const DashboardExcercises = props => {
             <CardBody>
               <CardTitle style={{ textAlign: 'center' }}>
                 <h4>{workout.group}</h4>
+                <Button size="small" data-workoutid={idx} onClick={props.handleToday}>
+                  Start
+                </Button>
               </CardTitle>
               <CardSubtitle>
                 <Table>
