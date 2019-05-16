@@ -60,18 +60,26 @@ class Dashboard extends Component {
   handleChosen = event => {
     let { dataset } = event.target;
 
-    this.setState({ programChosen: dataset.program });
+    //WORKING
+    this.setState({ programChosen: dataset.program }, () => {
+      this.getExcercises(this.state.programChosen);
+    });
 
-    console.log(this.state.programChosen);
+    //OLD
+    // console.log(this.state.programChosen);
 
-    if (this.state.programChosen) {
-      let programChosen = this.state.programChosen;
-      this.getExcercises(programChosen);
-    }
+    // if (this.state.programChosen) {
+    //   let programChosen = this.state.programChosen;
+    //   this.getExcercises(programChosen);
+    // }
   };
 
   handleViewPrograms = () => {
-    this.setState({ workoutChosen: false, programChosen: '', programExcercises: '' });
+    this.setState({
+      workoutChosen: false,
+      programChosen: '',
+      programExcercises: ''
+    });
     console.log(this.state);
   };
 
