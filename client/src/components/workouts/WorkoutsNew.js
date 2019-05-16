@@ -120,6 +120,9 @@ class WorkoutsNew extends Component {
 
     try {
       const res = await axios.post('/api/workouts', this.state);
+      if (res) {
+        window.location.href = '/workouts';
+      }
       console.log(res);
     } catch (err) {
       console.log(err);

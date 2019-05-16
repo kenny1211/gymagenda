@@ -13,7 +13,8 @@ class Dashboard extends Component {
     workoutChosen: false,
     workoutPrograms: [],
     programChosen: '',
-    programExcercises: []
+    programExcercises: [],
+    todaysExcercise: []
   };
 
   // when component mounts immediately getPrograms()
@@ -59,18 +60,26 @@ class Dashboard extends Component {
   handleChosen = event => {
     let { dataset } = event.target;
 
-    this.setState({ programChosen: dataset.program });
+    //WORKING
+    this.setState({ programChosen: dataset.program }, () => {
+      this.getExcercises(this.state.programChosen);
+    });
 
-    console.log(this.state.programChosen);
+    //OLD
+    // console.log(this.state.programChosen);
 
-    if (this.state.programChosen) {
-      let programChosen = this.state.programChosen;
-      this.getExcercises(programChosen);
-    }
+    // if (this.state.programChosen) {
+    //   let programChosen = this.state.programChosen;
+    //   this.getExcercises(programChosen);
+    // }
   };
 
   handleViewPrograms = () => {
-    this.setState({ workoutChosen: false, programChosen: '', programExcercises: '' });
+    this.setState({
+      workoutChosen: false,
+      programChosen: '',
+      programExcercises: ''
+    });
     console.log(this.state);
   };
 
@@ -81,11 +90,19 @@ class Dashboard extends Component {
     if (deleteThis) {
       try {
         const res = await axios.delete(`/api/program/${deleteThis}`);
+        if (res) {
+          this.getPrograms();
+        }
         console.log(res.data);
       } catch (err) {
         console.log(err);
       }
     }
+  };
+
+  handleToday = event => {
+    let { dataset } = event.target;
+    console.log(this.state.programExcercises.workouts[dataset.workoutid]);
   };
 
   renderUserView = () => {
@@ -106,6 +123,7 @@ class Dashboard extends Component {
             programExcercises={this.state.programExcercises}
             handleViewPrograms={this.handleViewPrograms}
             workoutChosen={this.state.workoutChosen}
+            handleToday={this.handleToday}
           />
         </div>
       );

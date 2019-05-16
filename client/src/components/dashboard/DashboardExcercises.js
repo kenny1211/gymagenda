@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Card,
   CardBody,
@@ -6,7 +6,7 @@ import {
   CardSubtitle,
   Table,
   Button
-} from "reactstrap";
+} from 'reactstrap';
 
 const DashboardExcercises = props => {
   //once user has chosen a program display respective excercises
@@ -15,13 +15,13 @@ const DashboardExcercises = props => {
   let renderExcercises = () => {
     if (props.workoutChosen) {
       let workoutsArray = props.programExcercises.workouts;
-      console.log(workoutsArray);
+      // console.log(workoutsArray);
 
       let excercisesArray = workout => {
-        return workout.excercises.map((excercise, index) => {
-          console.log(excercise.excercise, excercise.sets, excercise.reps);
+        return workout.excercises.map((excercise, jindex) => {
+          // console.log(excercise.excercise, excercise.sets, excercise.reps);
           return (
-            <tr key={excercise.excercise}>
+            <tr key={jindex}>
               <th>{excercise.excercise}</th>
               <th>{excercise.sets}</th>
               <th>{excercise.reps}</th>
@@ -34,8 +34,15 @@ const DashboardExcercises = props => {
         return (
           <Card key={idx}>
             <CardBody>
-              <CardTitle style={{ textAlign: "center" }}>
+              <CardTitle style={{ textAlign: 'center' }}>
                 <h4>{workout.group}</h4>
+                <Button
+                  size="small"
+                  data-workoutid={idx}
+                  onClick={props.handleToday}
+                >
+                  Start
+                </Button>
               </CardTitle>
               <CardSubtitle>
                 <Table>

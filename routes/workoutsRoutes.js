@@ -48,12 +48,25 @@ module.exports = app => {
     }
   });
 
-  // route to access a single excercise
+  // route to access a single excercise -- figure out correct query for nested object
   app.get('/api/excercise/:id', requireLogin, async (req, res) => {
     let id = req.params.id;
 
     try {
       const excercise = await Workouts.findById(id);
+      res.json(excercise);
+    } catch (err) {
+      console.log(err);
+      res.status(422).send(err);
+    }
+  });
+
+  // route to update weight for excercise -- front end still needs to be created for editing
+  app.put('/api/excercise/:id', requireLogin, async (req, res) => {
+    let id = req.params.id;
+
+    try {
+      const excercise = await Workouts.findByIdAndUpdate(id, { $set: req.body });
       res.json(excercise);
     } catch (err) {
       console.log(err);
