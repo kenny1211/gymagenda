@@ -7,6 +7,7 @@ import axios from 'axios';
 import DashboardPrograms from './DashboardPrograms';
 import DashboardExcercises from './DashboardExcercises';
 import { Button } from 'reactstrap';
+import Container from '../common/Container';
 
 class Dashboard extends Component {
   state = {
@@ -133,21 +134,22 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <div className="row">
-          <div className="col" style={{ textAlign: 'center' }}>
-            <h1>Dashboard</h1>
-            <Link to="/workouts/new">
-              <Button size="sm" color="warning">
-                Create Workout
-              </Button>
-            </Link>
-            <hr className="my-2" />
+        <Container>
+          <div className="row">
+            <div className="col" style={{ textAlign: 'center' }}>
+              <h1>Dashboard</h1>
+              <Link to="/workouts/new">
+                <Button size="sm" color="warning">
+                  Create Workout
+                </Button>
+              </Link>
+              <hr className="my-2" />
+            </div>
           </div>
-        </div>
-        <div className="row">
-          {/* <div className="col" style={{ textAlign: 'center' }}> */}
-          {this.renderUserView()}
-          {/* when workoutChosen false display workouts/programs, else display excercises
+          <div className="row">
+            {/* <div className="col" style={{ textAlign: 'center' }}> */}
+            {this.renderUserView()}
+            {/* when workoutChosen false display workouts/programs, else display excercises
             <DashboardPrograms
               workoutPrograms={this.state.workoutPrograms}
               handleChosen={this.handleChosen}
@@ -159,8 +161,9 @@ class Dashboard extends Component {
               handleViewPrograms={this.handleViewPrograms}
               workoutChosen={this.state.workoutChosen}
             /> */}
-          {/* </div> */}
-        </div>
+            {/* </div> */}
+          </div>
+        </Container>
       </div>
     );
   }

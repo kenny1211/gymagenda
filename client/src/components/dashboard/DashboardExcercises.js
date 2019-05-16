@@ -32,7 +32,7 @@ const DashboardExcercises = props => {
 
       return workoutsArray.map((workout, idx) => {
         return (
-          <Card key={idx}>
+          <Card key={idx} className="my-2">
             <CardBody>
               <CardTitle style={{ textAlign: 'center' }}>
                 <h4>{workout.group}</h4>
