@@ -7,6 +7,7 @@ import axios from 'axios';
 import DashboardPrograms from './DashboardPrograms';
 import DashboardExcercises from './DashboardExcercises';
 import { Button } from 'reactstrap';
+import Container from '../common/Container';
 
 class Dashboard extends Component {
   state = {
@@ -60,20 +61,28 @@ class Dashboard extends Component {
   handleChosen = event => {
     let { dataset } = event.target;
 
-    this.setState({ programChosen: dataset.program });
+    //WORKING
+    this.setState({ programChosen: dataset.program }, () => {
+      this.getExcercises(this.state.programChosen);
+    });
 
-    console.log(this.state.programChosen);
+    //OLD
+    // console.log(this.state.programChosen);
 
-    if (this.state.programChosen) {
-      let programChosen = this.state.programChosen;
-      this.getExcercises(programChosen);
-    }
+    // if (this.state.programChosen) {
+    //   let programChosen = this.state.programChosen;
+    //   this.getExcercises(programChosen);
+    // }
   };
 
   // once a program is chosen, the current view will the its respective excercises
   // this function handles the process of going back to view programs
   handleViewPrograms = () => {
-    this.setState({ workoutChosen: false, programChosen: '', programExcercises: '' });
+    this.setState({
+      workoutChosen: false,
+      programChosen: '',
+      programExcercises: ''
+    });
     console.log(this.state);
   };
 
@@ -137,21 +146,22 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <div className="row">
-          <div className="col" style={{ textAlign: 'center' }}>
-            <h1>Dashboard</h1>
-            <Link to="/workouts/new">
-              <Button size="sm" color="warning">
-                Create Workout
-              </Button>
-            </Link>
-            <hr className="my-2" />
+        <Container>
+          <div className="row">
+            <div className="col" style={{ textAlign: 'center' }}>
+              <h1>Dashboard</h1>
+              <Link to="/workouts/new">
+                <Button size="sm" color="warning">
+                  Create Workout
+                </Button>
+              </Link>
+              <hr className="my-2" />
+            </div>
           </div>
-        </div>
-        <div className="row">
-          {/* <div className="col" style={{ textAlign: 'center' }}> */}
-          {this.renderUserView()}
-          {/* when workoutChosen false display workouts/programs, else display excercises
+          <div className="row">
+            {/* <div className="col" style={{ textAlign: 'center' }}> */}
+            {this.renderUserView()}
+            {/* when workoutChosen false display workouts/programs, else display excercises
             <DashboardPrograms
               workoutPrograms={this.state.workoutPrograms}
               handleChosen={this.handleChosen}
@@ -163,8 +173,9 @@ class Dashboard extends Component {
               handleViewPrograms={this.handleViewPrograms}
               workoutChosen={this.state.workoutChosen}
             /> */}
-          {/* </div> */}
-        </div>
+            {/* </div> */}
+          </div>
+        </Container>
       </div>
     );
   }

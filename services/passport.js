@@ -1,13 +1,13 @@
 // passport - package to help with authentication that gives us general helper functions to connect auth w express
-const passport = require('passport');
+const passport = require("passport");
 // specific strategy for Google authentication -- passport also has other strats (e.g. Facebook, Spotify etc.)
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
-const mongoose = require('mongoose');
-const keys = require('../config/keys');
+const mongoose = require("mongoose");
+const keys = require("../config/keys");
 
 // get model class for user
-const User = mongoose.model('users');
+const User = mongoose.model("users");
 
 // pass a function to find user serialize user in order to serialize identifying piece of info to set cookie
 // first argument of user is what we pulled out of the database after going through oauth flow
@@ -32,12 +32,11 @@ passport.use(
     {
       clientID: keys.googleClientID,
       clientSecret: keys.googleClientSecret,
-      callbackURL: '/auth/google/callback',
+      callbackURL: "/auth/google/callback",
       proxy: true //our requests are made through a heroku server (proxy) so let google know to trust it (https vs http)
     },
     async (accessToken, refreshToken, profile, done) => {
       // console.log(accessToken, refreshToken, profile);
-
       // do not forget everytime we reach out to a DB it is an async action
       // after receiving info from finished google oauth flow -->
       // first we reach out to the DB to search the user collection to see if the user exists
@@ -48,7 +47,12 @@ passport.use(
         done(null, existingUser);
       } else {
         // if the user does not exists we create new model instance, save to MongoDB, then let passport know we are done
-        const user = await new User({ googleId: profile.id }).save();
+        const user = await new User({
+          googleId: profile.id,
+          email: profile._json.email,
+          name: profile._json.name,
+          avatar: profile._json.picture
+        }).save();
         done(null, user);
       }
     }
