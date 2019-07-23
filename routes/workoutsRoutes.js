@@ -95,4 +95,17 @@ module.exports = app => {
       res.status(422).send(err); // 422 - unprocessable
     }
   });
+
+  // save todays workout for user
+  app.post('/api/today', requireLogin, async (req, res) => {
+    const { todaysWorkout } = await req.body;
+
+    try {
+      console.log(res);
+      res.send(todaysWorkout);
+    } catch (err) {
+      console.log(err);
+      res.status(422).send(err); // 422 - unprocessable
+    }
+  });
 };

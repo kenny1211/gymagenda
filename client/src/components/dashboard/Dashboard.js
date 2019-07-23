@@ -105,16 +105,24 @@ class Dashboard extends Component {
 
   // when viewing the excercise list for the current chosen program
   // this function handles beginning a single workout in the list of workouts
-  handleToday = event => {
-    // clear todays workout in case another was previously chosen
-    this.setState({ todaysWorkout: [] });
-
+  handleToday = async event => {
     let { dataset } = event.target;
 
     // grab the single workout chosen from the workouts array in the programExcercises
     // console.log(this.state.programExcercises.workouts[dataset.workoutid]);
-    this.setState({ todaysWorkout: this.state.programExcercises.workouts[dataset.workoutid] });
-    console.log(`TODAYS WORKOUT: ${JSON.stringify(this.state.todaysWorkout)}`);
+    await this.setState(
+      { todaysWorkout: this.state.programExcercises.workouts[dataset.workoutid] },
+      () => {
+        console.log(`TODAYS WORKOUT: ${JSON.stringify(this.state.todaysWorkout)}`);
+      }
+    );
+
+    try {
+      const res = await axios.post('/api/today', this.state.todaysWorkout);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // two views are possible - a list of all programs OR excercises for a single program chosen by the user
