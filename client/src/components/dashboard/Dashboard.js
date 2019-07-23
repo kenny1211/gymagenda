@@ -14,7 +14,7 @@ class Dashboard extends Component {
     workoutPrograms: [],
     programChosen: '',
     programExcercises: [],
-    todaysExcercise: []
+    todaysWorkout: []
   };
 
   // when component mounts immediately getPrograms()
@@ -70,6 +70,8 @@ class Dashboard extends Component {
     }
   };
 
+  // once a program is chosen, the current view will the its respective excercises
+  // this function handles the process of going back to view programs
   handleViewPrograms = () => {
     this.setState({ workoutChosen: false, programChosen: '', programExcercises: '' });
     console.log(this.state);
@@ -92,11 +94,21 @@ class Dashboard extends Component {
     }
   };
 
+  // when viewing the excercise list for the current chosen program
+  // this function handles beginning a single workout in the list of workouts
   handleToday = event => {
+    // clear todays workout in case another was previously chosen
+    this.setState({ todaysWorkout: [] });
+
     let { dataset } = event.target;
-    console.log(this.state.programExcercises.workouts[dataset.workoutid]);
+
+    // grab the single workout chosen from the workouts array in the programExcercises
+    // console.log(this.state.programExcercises.workouts[dataset.workoutid]);
+    this.setState({ todaysWorkout: this.state.programExcercises.workouts[dataset.workoutid] });
+    console.log(`TODAYS WORKOUT: ${JSON.stringify(this.state.todaysWorkout)}`);
   };
 
+  // two views are possible - a list of all programs OR excercises for a single program chosen by the user
   renderUserView = () => {
     if (!this.state.workoutChosen) {
       return (

@@ -1,8 +1,11 @@
 # gymagenda
 
-A central location to for users to create, view, and log workout programs. My personal fitness journey came with much trial and error; to attest to that I have too many Google Bookmarks for PDFs of different excercise regiments. Rather than having to repeatedly flip pages of instructions/personal fitness mantras to locate a workout I want to do, I decided to just make an app that contains the templates for those programs. In addition, this app grants me the ability to create a more personalized routine and also view what works for others who post.
+An application that serves as a central location for different excercise programs. Currently, users can create, view, and delete programs.
+
+Soon: allow users to choose a specific workout from the database of programs. Upon selection, the app will allow users to record their achieved weight for each excercise in the given workout. Then users will be able to view their progress via charts and completed workouts via calendar.
 
 To Do:
+
 - [ ] Toast notifications for succesful post creation and deletion
 - [ ] Page reload or redirect after workout program submission
 - [ ] Put route to allow excercise edits
@@ -14,9 +17,10 @@ To Do:
 
 Made with MERN stack.
 Other technologies:
-* Axios
-* React-Router
-* Redux
-* Passport-Google-Oauth20
-* Cookie-Session
-* Reactstrap
+
+- Axios
+- React-Router
+- Redux
+- Passport-Google-Oauth20
+- Cookie-Session
+- Reactstrap
